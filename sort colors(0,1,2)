@@ -1,0 +1,32 @@
+
+https://leetcode.com/problems/sort-colors/submissions/
+
+//Dutch national flag algorithm
+//Dutch national flag algo is silved using three pointer approach mid,low and high assign mid=0,low=0,high=size-1
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+    int low=0;
+    int mid=0;
+    int high=nums.size()-1;
+    while(mid<=high)
+    {
+        //if we find mid as nums[mid]-->nums[0]==0 simplay swap low with mid
+        if(nums[mid]==0)
+        {
+            swap(nums[low++],nums[mid++]);
+        }
+        
+        //if mid is 1 increment mid
+        else if(nums[mid]==1)
+            {
+                mid++;
+            }
+        //else mid is 2 then put mid to last element that is high
+            else
+            {
+                swap(nums[mid],nums[high--]);
+            }
+    }
+    }
+};
