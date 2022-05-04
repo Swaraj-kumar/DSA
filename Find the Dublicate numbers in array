@@ -1,0 +1,44 @@
+
+https://leetcode.com/problems/find-the-duplicate-number/submissions/
+
+//Approach 1 Done by me using sort techinque
+/*class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+     sort(nums.begin(),nums.end());
+        int temp;
+     for(int i=0;i<nums.size();i++)
+     {
+         int j=i+1;
+         if(nums[i]==nums[j])
+         {
+            return nums[i]; 
+         }
+     }
+        return -1;
+    }
+};*/
+
+//Approach--2 using linked list cycle detection method
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        if(nums.size() <= 1) return 0;    
+        //find cycle-->since its given in question that there wil be a dublicate element so cycle willl be there and use do while
+        int slow = nums[0];
+        int fast = nums[0];
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+            
+        } while(slow != fast);
+        
+        //find begining of the cycle -->beggining of cycle will be my repeating element
+        slow = nums[0];
+        while ( slow != fast){
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        return fast;//we can return fast and slow because they will point to same positon 
+    }
+};
