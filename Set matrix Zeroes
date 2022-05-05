@@ -1,0 +1,35 @@
+https://leetcode.com/problems/set-matrix-zeroes/submissions/
+
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+    //whenever we find any elelemt whose ith or jth pos as 0 mark it as true
+    bool r=false;
+    bool c=false;
+    
+    //traverse over matrix and set the ith and jth pos as 0
+    for(int i=0;i<matrix.size();i++)
+    {
+        for(int j=0;j<matrix[0].size();j++)
+        {
+            if(matrix[i][j]==0)
+            {
+             if(i==0)r=true;
+             else if(j==0)c=true;
+             else
+             matrix[i][0] = matrix[0][j] = 0;//setting entire row and col as zero
+            }
+        }
+    }
+    //traverse from reverse and set the ith and jth pos as 0
+        for(int i=matrix.size()-1;i>=0;i--)
+        {
+            for(int j=matrix[0].size()-1;j>=0;j--)
+            {
+                if(i==0 && r==true)matrix[i][j]=0;
+                else if(j==0 && c==true)matrix[i][j]=0;
+                else if(matrix[i][0]==0 || matrix[0][j]==0)matrix[i][j]=0;//setting entire row and col as zero
+            }
+        }
+    }
+};
