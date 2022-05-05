@@ -1,0 +1,26 @@
+https://leetcode.com/problems/find-all-duplicates-in-an-array/submissions/
+
+//approach 1 done by me
+class Solution {
+public:
+    //solved by me with T.c-->o(n) and space is near about o(n) if we neglect map space
+    vector<int> findDuplicates(vector<int>& nums) {
+    unordered_map<int,int>mp;  
+    vector<int>res;
+    for(auto it:nums) 
+    {
+        mp[it]++;
+    }
+    
+    int temp;
+    for(auto it:mp)
+    {
+        if(it.second>1){
+        res.push_back(it.first);
+        
+    }
+    }
+        return res;
+    
+    }
+};
