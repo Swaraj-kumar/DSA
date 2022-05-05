@@ -1,0 +1,19 @@
+https://leetcode.com/problems/subarray-sum-equals-k/submissions/
+
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+    //initially insert o with frequency 1 in map
+     //calculate running sum and check whether sum-k exist in map or not if it exist incremeent count
+      unordered_map<int,int>mp;
+      mp.insert({0,1});
+      int sum=0,count=0;
+      for(auto it:nums)
+      {
+       sum = sum + it;
+       count = count + mp[sum-k];
+       mp[sum]++;
+      }
+      return count;
+    }
+};
