@@ -1,0 +1,21 @@
+https://leetcode.com/problems/jump-game/
+
+class Solution {
+public:
+    //observations:
+    // 1-->if the starting pos is zero that means we cannot reach last 
+    // 2-->if the array does not contain any zeroes then we can reach last 
+    
+    //whenever i becomes more than the reachable then return false that means we have encountered zero so we cannot take any jumps
+    //take the maximum of reachable and array current index + value at that index for the jumps
+    bool canJump(vector<int>& nums) {
+    int reachable=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(i>reachable)return false;
+            
+            reachable=max(reachable,i+nums[i]);
+        }
+        return true;
+    }
+};
