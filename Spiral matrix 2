@@ -1,0 +1,57 @@
+
+https://leetcode.com/problems/spiral-matrix-ii/submissions/
+
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        //vector for storing n*n matrix
+        vector<vector<int>> res(n,vector<int>(n));
+        int top = 0;
+        int bottom = n-1;
+        int left = 0;
+        int right = n-1;
+        int val = 1;
+        int direction=1;
+        //if direction is 1 go from left to right 2-->top to bottom 3-->right to left 4-->bottom to top
+        while(left<=right && top<=bottom)
+        {
+            if(direction == 1)    
+            {   
+                for(int i=left;i<=right;i++)
+                {
+                    res[top][i]=val++;
+                }
+                top=top+1;
+                direction=2;
+            }
+            else if(direction == 2)
+            {
+                for(int i = top;i<=bottom;i++)
+                {
+                    res[i][right]=val++;
+                }
+                right=right-1;
+                direction = 3;
+            }
+            else if(direction == 3)
+            {
+                for(int i = right;i>=left;i--)
+                {
+                    res[bottom][i]=val++;
+                }
+                bottom=bottom-1;
+                direction=4;
+            }
+            else if(direction == 4)
+            {
+                for(int i=bottom;i>=top;i--)
+                {
+                    res[i][left]=val++;
+                }
+                left=left+1;
+                direction = 1;
+            }
+        }
+        return res;
+    }
+};
