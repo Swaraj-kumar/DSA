@@ -1,0 +1,24 @@
+https://leetcode.com/problems/reverse-pairs/
+
+//Approach--1
+//Brute force --> but it shows Time limit exceeded
+//T.c-->o(n^2)
+//s.c-->o(1)
+
+class Solution {
+public:
+    int reversePairs(vector<int>& nums) {
+    int count=0;
+     for(int i=0;i<nums.size();i++)
+     {
+         for(int j=i+1;j<nums.size();j++)
+         {
+             if(nums[i] > 2.0 * nums[j])count++;
+         }
+     }
+        return count;
+    }
+};
+
+//Approach--2
+
