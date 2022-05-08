@@ -1,0 +1,59 @@
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+     //supposing minimum so far as prices[0] and maximum profit as 0
+     int minimum_so_far = prices[0];
+     int maximum_profit = 0;
+     
+     for(int i=0;i<prices.size();i++)
+     {
+             minimum_so_far = min(minimum_so_far,prices[i]);
+             maximum_profit = max(maximum_profit, prices[i]-minimum_so_far);
+         
+     }
+        return maximum_profit;
+    }
+};
+
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+    int profit = 0;
+    //loop starts from 1 since we have to check for the prev element whether its smaller than current element or not
+    for(int i=1;i<prices.size();i++)
+    {
+        if(prices[i] > prices[i-1])
+        profit = profit + (prices[i] - prices[i-1]);
+    }
+        return profit;
+    }
+};
+
+https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
+
+class Solution {
+public:
+    //This is similar to Best Time to Buy and Sell Stock 1 
+    // here we have at most two transactions. 
+    int maxProfit(vector<int>& prices) {
+     int minimum_so_far1 = prices[0];
+     int maximum_profit1 = 0;
+        
+     int minimum_so_far2 = prices[0];
+     int maximum_profit2 = 0;
+      for(int i=0;i<prices.size();i++)
+      {
+          minimum_so_far1 = min(minimum_so_far1,prices[i]);
+          maximum_profit1 = max(maximum_profit1,prices[i]-minimum_so_far1);
+          
+          minimum_so_far2 = min(minimum_so_far2,prices[i]-maximum_profit1);
+          maximum_profit2 = max(maximum_profit2,prices[i]-minimum_so_far2);
+          
+      }
+        return maximum_profit2;
+    }
+};
