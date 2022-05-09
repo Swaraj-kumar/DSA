@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+//input--->abc
+//output->abc, a_bc, ab_c, a_b_c
+void solve(string in,string op)
+{
+	if(in.size()==0)
+	{
+		cout<<op<<" ";
+		return;
+	}
+	string op1=op+"_"+in[0];//include with space
+	string op2=op+in[0];//include without space
+	in.erase(in.begin()+0);//erase the first pos 
+	solve(in,op1);//recursive call for rest of the functions
+	solve(in,op2);
+	return;
+}
+int main()
+{
+	string s;
+	cin>>s;
+	string op="";
+	//firstly we have to choose first pos eg:i/p: abc
+	//so choosing "a" in op and bc will be input
+	//thus input becomes smaller and we are erasing first pos of string as we 
+	//have choosen it
+	op=op+s[0];
+	s.erase(s.begin()+0);
+	solve(s,op);
+	return 0;
+}
