@@ -1,0 +1,47 @@
+https://leetcode.com/problems/generate-parentheses/
+
+class Solution {
+public:
+    //Recurssion
+    // obeservations:
+    // 1.if open and close both are 0 that means we have reached leaf node and got the output
+    // 2.if open is not zero then till then we can choose open "("
+    // 3.if close if greater than open then we can insert ")" 
+    void solve(int open,int close,string op,vector<string>&res)
+    {
+        //if its  a leaf node 
+        if(open==0 && close==0)
+        {
+            res.push_back(op);
+            return;
+        }
+        //till the time open does not become zero keep chooseing open
+        if(open!=0)
+        {
+          
+            // string op1=op;
+            // op1.push_back('(');
+           string op1 = op + "(";
+           solve(open-1,close,op1,res);
+        }
+        //when close is grater 
+        if(close > open)
+        {
+            // string op2=op;
+            // op2.push_back(')');
+            string op2 = op + ")";
+           solve(open,close-1,op2,res);
+        }
+    }
+    
+    //lets suppose n=3 then total paranthesis geneerated will be 6 i.e 3 open and 3 close braces
+    //so taking open=3 and close=3 and op vairable is to store the output and res is for resturning vector
+    vector<string> generateParenthesis(int n) {
+    vector<string>res;
+    int open=n;
+    int close=n;
+    string op="";
+    solve(open,close,op,res);
+    return res;
+    }
+};
