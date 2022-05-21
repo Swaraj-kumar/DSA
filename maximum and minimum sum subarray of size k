@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+//Time complexity is O(n) space is of O(1)
+int maximum(int arr[],int size,int k)
+{
+    int maxi = INT_MIN;
+    int sum=0;
+    int i=0,j=0;//i--> starting index  j--> ending index
+    //iterate till j reaches end of array
+    while(j < size)
+    {
+        sum = sum +arr[j];//calculate cumulative sum of that particular window
+        if(j-i+1 < k)//finding window
+        {
+            j++;
+        }
+        else if(j-i+1 == k)//if window is found calculate maximum from sum and maxi and exclude i and include j
+        {
+            maxi = max(maxi,sum);
+            sum = sum - arr[i];
+            i++;
+            j++;
+        }
+    }
+    return maxi;
+}
+
+
+int minimum(int arr[],int size,int k)
+{
+    int mini = INT_MAX;
+    int sum=0;
+    int i=0,j=0;
+    while(j < size)
+    {
+        sum = sum +arr[j];
+        if(j-i+1 < k)
+        {
+            j++;
+        }
+        else if(j-i+1 == k)
+        {
+            mini = min(mini,sum);
+            sum = sum - arr[i];
+            i++;
+            j++;
+        }
+    }
+    return mini;
+}
+
+int main()
+{
+    int arr[] = {2,3,5,2,9,7,1};
+    int size = sizeof(arr)/sizeof(arr[0]);
+    int k = 3;
+    cout<<"subarray with maximum sum: "<<maximum(arr,size,k)<<endl;
+    cout<<"subarray with minimum sum: "<<minimum(arr,size,k);
+    
+    return 0;
+}
