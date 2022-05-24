@@ -1,0 +1,69 @@
+https://leetcode.com/problems/longest-substring-without-repeating-characters/
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+    //if strign is null return 0
+    if(s == "")return 0;
+    //res will store result
+    int res=INT_MIN;
+    unordered_map<char,int>mp;
+    int i=0,j=0;//i-->start, j-->end
+ 
+    while(j < s.size())
+    {
+        //pushing all elements in map
+        mp[s[j]]++;
+        //if the size of map is equal to the size of window then find maximum of them
+        if(mp.size() == j-i+1)res = max(res,j-i+1);
+        //if map size if less than window then start removing characters from first and keep on checking whether map size are equal to window size
+        else if(mp.size() < j-i+1)
+        {
+            while(mp.size() < j-i+1)
+            {
+                mp[s[i]]--;
+                if(mp[s[i]] == 0)mp.erase(s[i]);
+                i++;
+                if(mp.size() == j-i+1)res = max(res,j-i+1);
+            }
+        }
+        j++;
+        
+    }
+        return res;
+    }
+};
+
+
+
+https://practice.geeksforgeeks.org/problems/longest-k-unique-characters-substring0853/1
+
+
+int longestKSubstr(string str, int k) {
+    // your code here
+      int i, j, res = -1;
+    unordered_map<char, int> mp;
+    i = j = 0;
+    
+    while(j < str.size())
+    {
+        mp[str[j]]++;
+        if(mp.size() == k)
+            res = max(res, j-i+1);
+        else if(mp.size() > k)
+        {
+            while(mp.size() > k)
+            {
+                mp[str[i]]--;
+                if(mp[str[i]] == 0)
+                    mp.erase(str[i]);
+                ++i;
+                if(mp.size() == k)
+                    res = max(res, j-i+1);
+            }
+        }
+        ++j;
+    }
+    
+    return res;
+    }
