@@ -1,0 +1,57 @@
+https://leetcode.com/problems/minimum-window-substring/submissions/
+
+class Solution {
+public:
+    string minWindow(string s, string t) {
+    //ans stores the ans 
+    string ans;
+    //mini is fot getting the window size
+    int mini = INT_MAX;
+    //for putting allt hose characters along with frequency in map
+    unordered_map<char,int>mp;
+    for(int i=0;i<t.size();i++)mp[t[i]]++;
+    
+    //i->starting pointer   j-->ending pointer
+    int i = 0,j = 0;
+    //count-> for getting size of map
+    int count = mp.size();
+    
+    //iterate till map size is less than s size
+    while(j < s.size())
+    {
+    //if while iterating any j th character is founc which is in map then decremeent its value in map
+  // also if we decrement value in map check whether it  bacame zero or not if it bacame then decrement count also
+     if(mp.find(s[j]) != mp.end())
+     {
+         mp[s[j]]--;
+         if(mp[s[j]] == 0)
+         {
+             count--;
+         }
+     }
+    //if count became zer then we seems like we got our ans so check whether window size is less than mini or not
+    // if its lesser than our mini became equal to that window size so take that windows character in ans 
+     while(count == 0)
+     {
+         if(j-i+1 < mini)
+         {
+             mini = j-i+1;
+             ans = s.substr(i,j-i+1);
+         }
+         //if ith character is found in map then increment map value also if the value became greater than 0 then
+         //increment count and move the pointers
+         if(mp.find(s[i]) != mp.end())
+         {
+             mp[s[i]]++;
+             if(mp[s[i]] > 0)
+             {
+                 count++;
+             }
+         }
+         i++;
+     }
+        j++;
+    }
+        return ans;
+    } 
+};
