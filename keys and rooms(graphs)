@@ -1,0 +1,58 @@
+//BFS Traversal of graph
+
+// class Solution {
+// public:
+//     bool canVisitAllRooms(vector<vector<int>>& rooms) {
+//     //take visited array and initalize it with 0
+//     vector<int>vis(rooms.size(),0);
+//     //initally push 0 to queue as it is given in question that only 0 is unlocked
+//     queue<int>q;
+//     q.push(0);
+//     //iterate till queue is not empty
+//     while(!q.empty())
+//     {
+//         //take the front element of queue and pop it out also mark it as visited 
+//         int node = q.front();
+//         q.pop();
+//         vis[node] = 1;
+//         //iterate till all the adjacent nodes and check whether adjacent nodes are visited or not 
+//         //0---> not visited and 1 means visited, if not visited then push it to queue
+//         for(auto it : rooms[node])if(vis[it]==0)q.push(it);
+//     }
+//         //at last iterate over visited array and check whether it is visited or not 
+//         for(auto it : vis)if(it == 0)return false;
+//         return true;
+//     }
+// };
+
+
+//DFS Traversal of Graph
+class Solution {
+public:
+    void DFS(vector<vector<int>>& rooms,int node,vector<int>&visited){
+        //visit and mark as visited
+        visited[node]=1;
+        //iterate over all the adjacent nodes whichever node is not visted
+        for(auto it:rooms[node]){
+            if(visited[it]==0){
+                DFS(rooms,it,visited);
+            }
+        }
+    }
+    
+    
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        //take a visited array and initialize it with 0 stating that the node is not visited
+        vector<int> visited(rooms.size(),0);
+        //recurssively call for nodes and its adjacent
+        DFS(rooms,0,visited);
+        //Iterate over visited array and check any node is not visited i.e remains 0 then return false
+        for(int it=0;it<visited.size();it++){
+            if(visited[it]==0)
+                return false;
+        }
+        return true;
+        
+    }
+};
+
