@@ -1,0 +1,94 @@
+https://leetcode.com/problems/number-of-islands/submissions/
+
+
+//using BFS algorithm and four direction short technique
+class Solution {
+public:
+   void bfs(int i,int j,vector<vector<char>>& grid,int m,int n){
+        queue<pair<int,int>>q;
+        q.push({i,j});
+        
+        while(!q.empty()){
+            auto it = q.front();
+            q.pop();
+            int row = it.first;
+            int col = it.second;
+            int dx [] = {1,-1,0,0};
+            int dy [] = {0,0,-1,1};
+            
+            for(int i = 0;i<4;i++){
+                int nx = row + dx[i];
+                int ny = col + dy[i];
+                if(nx < 0 || nx>=m ||ny < 0 || ny >=n || grid[nx][ny] != '1'){
+                    continue;
+                }
+                grid[nx][ny] = '2';
+                q.push({nx,ny});
+
+            }
+        }
+    }
+    
+    int numIslands(vector<vector<char>>& grid) {
+        int rows = grid.size();
+        int col = grid[0].size();
+        
+        int islands = 0;
+        for(int i = 0;i < rows;i++){
+            for(int j = 0;j < col;j++){
+                if(grid[i][j] == '1'){
+                    islands++;
+                    bfs(i,j,grid,rows,col);      
+            }
+        }
+        }
+        return islands;
+    }
+};
+   
+   
+   
+   
+   
+   
+   //DFS traversal of graphs
+   class Solution {
+    public:
+    int numIslands(vector<vector<char>>& grid) {
+    // finding the size of rows and columns
+    int rows = grid.size();
+    int col = grid[0].size();
+    
+    //if we have size of rows as zero then we do not have any islands
+    if(rows == 0)return 0;
+    //islands will return the number of islands
+    int islands = 0;
+    //traverse over the rows and columns and check if the particular grid is having 1 or not
+    //if its having 1 then make a dfs call for that and increment isands
+    for(int i=0;i<rows;i++)
+    {
+        for(int j=0;j<col;j++)
+        {
+            if(grid[i][j] == '1'){
+            DFS(grid,i,j,rows,col);
+            islands++;
+        }
+        }
+    }
+    return islands;
+    }
+    
+    //DFS call
+    void DFS(vector<vector<char>>& grid,int i, int j, int rows,int col)
+    {
+        //edge cases
+        if(i < 0 || i>=rows || j < 0 || j>=col || grid[i][j]!='1')return;
+        //after visiting the grid mark it as visited
+        grid[i][j] = '2';
+        //traverse over all the directions
+        DFS(grid,i+1,j,rows,col);//right
+        DFS(grid,i-1,j,rows,col);//left
+        DFS(grid,i,j+1,rows,col);//down
+        DFS(grid,i,j-1,rows,col);//top
+    }
+};
