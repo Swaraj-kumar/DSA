@@ -1,0 +1,106 @@
+2 sum
+
+https://leetcode.com/problems/two-sum/
+
+// APPROACH 1 Time complexity o(n^2) space complexity o(1)
+/*class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+    for(int i=0;i<nums.size();i++){
+        for(int j=i+1;j<nums.size();j++){
+            if(nums[i] + nums[j] == target){
+            return {i,j};
+            }
+        }
+    }
+        return {-1,-1};
+    }
+};*/
+  
+// APPROACH 2 Time complexity o(n) space complexity o(n)
+// class Solution {
+// public:
+//     vector<int> twoSum(vector<int>& nums, int target) {
+//     vector<int>res;
+//     unordered_map<int,int>mp;
+    
+//     for(int i=0;i<nums.size();i++){
+//     if(mp.find(target-nums[i]) != mp.end()){
+//         res.push_back(mp[target-nums[i]]);
+//         res.push_back(i);
+//     }
+//         else{
+//             mp.insert({nums[i],i});//corresponding to the value i am storing the index
+//         }
+//     }
+//         return res;
+//     }
+// };
+
+
+3Sum
+
+https://leetcode.com/problems/3sum/submissions/
+
+class Solution {
+public:
+     //since we know x+y+z == target and lets suppose we know x then we are left to find y + z which is, target = -x 
+    vector<vector<int>> threeSum(vector<int>& nums) {
+    vector<vector<int>>res;
+    sort(nums.begin(),nums.end());
+    for(int i=0;i<nums.size();i++){
+    int x = nums[i];
+    int target = -x;
+    int start = i+1;
+    int end = nums.size()-1;
+    while(start < end){
+        if(nums[start] + nums[end] == target){
+            res.push_back({nums[i],nums[start],nums[end]});
+            //to prevent from dublicate values
+            while(start < end && nums[start] == nums[start+1])start++;
+            while(start < end && nums[end] == nums[end-1])end--;
+            start++;
+            end--;
+        }
+        else if(nums[start] + nums[end] > target){
+        end--;
+        }
+        else{
+            start++;
+        }
+         while(i+1 < nums.size() && nums[i] == nums[i+1])i++;
+    }
+    }
+        return res;
+    }
+};
+
+
+4SumII
+
+https://leetcode.com/problems/4sum-ii/
+ 
+ // idea: a+b+c+d = 0  =>  a+b = -(c+d) ;
+ // store a+b in hash map for first two array combinations
+ // later for last two array combinations check if sum exist in array
+class Solution {
+public:
+    int fourSumCount(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3, vector<int>& nums4) {
+    unordered_map<int,int>mp;
+    int count =0;
+    for(int i=0;i<nums1.size();i++){
+        for(int j=0;j<nums2.size();j++){
+            mp[nums1[i]+nums2[j]]++;
+        }
+    }
+        
+        for(int i=0;i<nums3.size();i++){
+            for(int j=0;j<nums4.size();j++){
+                if(mp.find(-(nums3[i]+nums4[j])) != mp.end()){
+                    count = count + mp[-(nums3[i]+nums4[j])];
+                }
+            }
+        }
+        return count;
+    }
+};
