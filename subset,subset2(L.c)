@@ -1,0 +1,62 @@
+
+https://leetcode.com/problems/subsets/
+//subset
+
+class Solution {
+public:
+    
+    void fun(int ind,vector<int> &nums,vector<int> &ds,vector<vector<int>> &ans){
+        if(ind == nums.size()){
+            ans.push_back(ds);
+            return;
+        }
+        //pick
+        ds.push_back(nums[ind]);
+        fun(ind+1,nums,ds,ans);
+        ds.pop_back();
+        //not pick
+        fun(ind+1,nums,ds,ans);
+        
+    }
+    
+    vector<vector<int>> subsets(vector<int>& nums) {
+    vector<int> ds;
+    vector<vector<int>>ans;
+    fun(0,nums,ds,ans);
+    return ans;
+    }
+};
+
+
+https://leetcode.com/problems/subsets-ii/submissions/
+
+//subset 2
+//T.c -> logm * 2^n
+class Solution {
+public:
+    
+    void fun(int ind,vector<int> &nums,vector<int> &ds, set<vector<int>> &s){
+        if(ind == nums.size()){
+            s.insert(ds);
+            return;
+        }
+        //pick
+        ds.push_back(nums[ind]);
+        fun(ind+1,nums,ds,s);
+        ds.pop_back();
+        //not pick
+        fun(ind+1,nums,ds,s);
+        
+    }
+    
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+    sort(nums.begin(),nums.end());
+    vector<int> ds;
+    set<vector<int>>s;
+    vector<vector<int>>ans;
+    fun(0,nums,ds,s);
+    for(auto it: s)ans.push_back(it);
+    return ans;
+    
+    }
+};
