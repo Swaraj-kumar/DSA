@@ -1,3 +1,7 @@
+//combination sum
+T.c-> 2^t * k
+s.c-> k * x
+
 class Solution {
 public:
     void findCombination(int ind,int target,vector<int> &nums,vector<int> &ds,vector<vector<int>> &ans){
@@ -26,7 +30,9 @@ public:
 };
 
 
-combinationsum 2
+combination sum2
+T.c-> 2^n * k
+s.c-> k * x
 
 
 class Solution {
@@ -53,5 +59,36 @@ public:
     vector<int>ds;
     fun(0,target,ds,ans,nums);
     return ans;
+    }
+};
+
+
+
+combination sum3
+T.c-> 2^t * k
+s.c-> k * x
+
+
+class Solution {
+public:
+    void fun(int ind,int k,int n,vector<int> &ds,vector<vector<int>> &ans){
+        if(n < 0 || ds.size() > k)return;
+        if(n == 0 && ds.size() == k){
+            ans.push_back(ds);
+            return;
+        }
+        
+        for(int i=ind;i<=9;i++){
+            ds.push_back(i);
+            fun(i+1,k,n-i,ds,ans);
+            ds.pop_back();
+        }
+    }
+    
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<int>> ans;
+        vector<int>ds;
+        fun(1,k,n,ds,ans);
+        return ans;
     }
 };
